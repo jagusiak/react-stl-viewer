@@ -48,6 +48,7 @@ export interface SceneSetupProps {
   onFinishLoading?: (ev: ModelDimensions) => any
   modelProps?: ModelProps
   floorProps?: FloorProps
+  wired?: boolean
 }
 
 const SceneSetup: React.FC<SceneSetupProps> = (
@@ -58,6 +59,7 @@ const SceneSetup: React.FC<SceneSetupProps> = (
     showAxes = false,
     orbitControls = false,
     onFinishLoading = () => {},
+    wired,
     cameraInitialPosition: {
       latitude = INITIAL_LATITUDE,
       longitude = INITIAL_LONGITUDE,
@@ -172,6 +174,7 @@ const SceneSetup: React.FC<SceneSetupProps> = (
                 visible={sceneReady}
                 materialProps={{ color }}
                 onLoaded={onLoaded}
+                wired={wired}
             />
             <Floor
                 width={gridWidth ?? gridLength}

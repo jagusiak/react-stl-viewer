@@ -9,6 +9,7 @@ type DivProps = Omit<HTMLProps<HTMLDivElement>, 'color' | 'onError'>
 export interface StlViewerProps extends DivProps, SceneSetupProps {
   onError?: (err: Error) => void
   canvasId?: string
+  wired?: boolean
 }
 
 const StlViewer: React.FC<StlViewerProps> = (
@@ -25,6 +26,7 @@ const StlViewer: React.FC<StlViewerProps> = (
     showAxes,
     orbitControls,
     cameraInitialPosition,
+    wired,
     ...otherProps
   }
 ) => {
@@ -55,7 +57,7 @@ const StlViewer: React.FC<StlViewerProps> = (
                         id={canvasId}
                         style={{ width: '100%', height: '100%' }}
                     >
-                        <SceneSetup {...sceneProps}/>
+                        <SceneSetup wired={wired} {...sceneProps}/>
                         {children}
                     </Canvas>
                 </React.Suspense>

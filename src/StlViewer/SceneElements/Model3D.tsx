@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Box3, BufferGeometry, Group, Matrix4, Mesh } from 'three'
+import { Box3, BufferGeometry, DoubleSide, Group, Matrix4, Mesh } from 'three'
 import { GroupProps, MeshProps, MeshStandardMaterialProps, useFrame } from '@react-three/fiber'
 
 export interface ModelDimensions {
@@ -16,6 +16,7 @@ export interface Model3DProps extends Omit<GroupProps, 'scale'> {
   meshProps: MeshProps
   materialProps: MeshStandardMaterialProps
   onLoaded: (dims: ModelDimensions, mesh: Mesh, group: Group) => any
+  wired?: boolean
 }
 
 const Model3D: React.FC<Model3DProps> = (
@@ -29,6 +30,7 @@ const Model3D: React.FC<Model3DProps> = (
       ...otherMaterialProps
     },
     onLoaded,
+    wired,
     ...otherProps
   }
 ) => {
@@ -74,7 +76,13 @@ const Model3D: React.FC<Model3DProps> = (
                 {...meshProps}
             >
                 <primitive object={geometry} attach={'geometry'} />
-                <meshStandardMaterial wireframe wireframeLinewidth={2} color={'#000000'}/>
+                { wired === true
+                  ? <meshStandardMaterial wireframe wireframeLinewidth={2} color={'#000000'}/>
+                  : <meshStandardMaterial
+                    side={DoubleSide}
+                    opacity={visible ? (opacity):0}
+                    {...otherMaterialProps}
+                /> }
             </mesh>
         </group>
   )
