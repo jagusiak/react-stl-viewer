@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Box3, BufferGeometry, DoubleSide, Group, Matrix4, Mesh } from 'three'
+import { Box3, BufferGeometry, Group, Matrix4, Mesh } from 'three'
 import { GroupProps, MeshProps, MeshStandardMaterialProps, useFrame } from '@react-three/fiber'
 
 export interface ModelDimensions {
@@ -74,11 +74,7 @@ const Model3D: React.FC<Model3DProps> = (
                 {...meshProps}
             >
                 <primitive object={geometry} attach={'geometry'} />
-                <meshStandardMaterial
-                    side={DoubleSide}
-                    opacity={visible ? (opacity):0}
-                    {...otherMaterialProps}
-                />
+                <meshStandardMaterial wireframe wireframeLinewidth={2} color={'#000000'}/>
             </mesh>
         </group>
   )
